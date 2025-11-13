@@ -1,5 +1,5 @@
 import tkinter as tk
-from ui import create_sidebar_button, create_graph_frame
+from ui import create_sidebar_button, activate_button, create_graph_frame
 from utils import (
     get_cpu_usage,
     get_memory_usage,
@@ -8,11 +8,11 @@ from utils import (
 )
 
 root = tk.Tk()
-root.title("System Monitor")
+root.title("System Monitor - Pro")
 root.geometry("1000x650")
 root.config(bg="#1e1e2e")
 
-# ================= Sidebar =================
+# =============== Sidebar ===============
 sidebar = tk.Frame(root, bg="#111", width=180)
 sidebar.pack(side="left", fill="y")
 
@@ -20,6 +20,8 @@ content = tk.Frame(root, bg="#1e1e2e")
 content.pack(side="right", fill="both", expand=True)
 
 current_frame = None
+buttons = []
+
 
 def show_frame(frame):
     global current_frame
@@ -28,7 +30,8 @@ def show_frame(frame):
     current_frame = frame
     current_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-# ---------------- CPU Page ----------------
+
+# =============== CPU PAGE ===============
 cpu_frame, cpu_ax, cpu_line, cpu_canvas = create_graph_frame(content, "CPU Usage")
 cpu_data = []
 
@@ -45,7 +48,8 @@ def update_cpu():
     if current_frame == cpu_frame:
         root.after(800, update_cpu)
 
-# ---------------- Memory Page ----------------
+
+# =============== MEMORY PAGE ===============
 mem_frame, mem_ax, mem_line, mem_canvas = create_graph_frame(content, "Memory Usage")
 mem_data = []
 
@@ -62,7 +66,8 @@ def update_memory():
     if current_frame == mem_frame:
         root.after(800, update_memory)
 
-# ---------------- Disk Page ----------------
+
+# =============== DISK PAGE ===============
 disk_frame, disk_ax, disk_line, disk_canvas = create_graph_frame(content, "Disk Speed")
 disk_data = []
 
@@ -79,7 +84,8 @@ def update_disk():
     if current_frame == disk_frame:
         root.after(800, update_disk)
 
-# ---------------- Network Page ----------------
+
+# =============== NETWORK PAGE ===============
 net_frame, net_ax, net_line, net_canvas = create_graph_frame(content, "Network Speed")
 net_data = []
 
@@ -96,10 +102,17 @@ def update_network():
     if current_frame == net_frame:
         root.after(800, update_network)
 
-# ================= Sidebar Buttons =================
-create_sidebar_button(sidebar, "CPU Usage", lambda: [show_frame(cpu_frame), update_cpu()]).pack(fill="x", pady=5)
-create_sidebar_button(sidebar, "Memory Usage", lambda: [show_frame(mem_frame), update_memory()]).pack(fill="x", pady=5)
-create_sidebar_button(sidebar, "Disk Speed", lambda: [show_frame(disk_frame), update_disk()]).pack(fill="x", pady=5)
-create_sidebar_button(sidebar, "Network", lambda: [show_frame(net_frame), update_network()]).pack(fill="x", pady=5)
+
+# =============== Sidebar Buttons ===============
+btn_cpu = create_sidebar_button(sidebar, "CPU Usage", "🔥", lambda: [activate_button(btn_cpu, buttons), show_frame(cpu_frame), update_cpu()])
+btn_mem = create_sidebar_button(sidebar, "Memory", "🧠", lambda: [activate_button(btn_mem, buttons), show_frame(mem_frame), update_memory()])
+btn_disk = create_sidebar_button(sidebar, "Disk Speed", "💾", lambda: [activate_button(btn_disk, buttons), show_frame(disk_frame), update_disk()])
+btn_net = create_sidebar_button(sidebar, "Network", "🌐", lambda: [activate_button(btn_net, buttons), show_frame(net_frame), update_network()])
+
+buttons.extend([btn_cpu, btn_mem, btn_disk, btn_net])
+
+for b in buttons:
+    b.pack(fill="x", pady=5)
+
 
 root.mainloop()

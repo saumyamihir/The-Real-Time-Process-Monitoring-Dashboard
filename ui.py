@@ -2,23 +2,29 @@ import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-# Sidebar button
-def create_sidebar_button(root, text, command):
-    return tk.Button(
+def create_sidebar_button(root, text, icon, command):
+    btn = tk.Button(
         root,
-        text=text,
+        text=f"{icon}  {text}",
         font=("Arial", 14, "bold"),
-        bg="#333",
+        bg="#222",
         fg="white",
-        activebackground="#555",
+        activebackground="#444",
         activeforeground="white",
         bd=0,
+        anchor="w",
+        padx=15,
+        pady=10,
         command=command
     )
+    return btn
 
-# Graph frame creator
+def activate_button(button, all_buttons):
+    for b in all_buttons:
+        b.config(bg="#222")
+    button.config(bg="#555")
+
 def create_graph_frame(parent, title):
-
     frame = tk.Frame(parent, bg="#1e1e2e")
 
     fig = Figure(figsize=(5, 3), dpi=100)
