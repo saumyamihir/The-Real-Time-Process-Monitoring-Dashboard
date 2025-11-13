@@ -1,37 +1,36 @@
 import tkinter as tk
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-# ---------- Card Creator ----------
-def create_card(root, title, color, row, col):
-    card = tk.Frame(root, bg=color, bd=3, relief="ridge")
-    card.grid(row=row, column=col, padx=25, pady=25, sticky="nsew")
+# Sidebar button
+def create_sidebar_button(root, text, command):
+    return tk.Button(
+        root,
+        text=text,
+        font=("Arial", 14, "bold"),
+        bg="#333",
+        fg="white",
+        activebackground="#555",
+        activeforeground="white",
+        bd=0,
+        command=command
+    )
 
-    title_label = tk.Label(card, text=title, bg=color, fg="white",
-                           font=("Arial", 18, "bold"))
-    title_label.pack(anchor="w", padx=15, pady=8)
+# Graph frame creator
+def create_graph_frame(parent, title):
 
-    value_label = tk.Label(card, text="", bg=color, fg="white",
-                           font=("Arial", 32, "bold"))
-    value_label.pack(anchor="w", padx=20)
+    frame = tk.Frame(parent, bg="#1e1e2e")
 
-    return card, value_label
-
-# ---------- Graph Creator ----------
-def create_graph(root, title):
-    frame = tk.Frame(root, bg="#1e1e2e")
-    frame.pack(fill="both", expand=True, padx=20, pady=10)
-
-    fig = Figure(figsize=(5, 2), dpi=100)
+    fig = Figure(figsize=(5, 3), dpi=100)
     ax = fig.add_subplot(111)
     ax.set_title(title, color="white")
     ax.set_facecolor("#222233")
     fig.patch.set_facecolor("#1e1e2e")
     ax.tick_params(colors='white')
 
-    line, = ax.plot([], [], linewidth=2)
+    line, = ax.plot([], [], linewidth=2, color="cyan")
 
     canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.get_tk_widget().pack(fill="both", expand=True)
 
-    return ax, line, canvas
+    return frame, ax, line, canvas
