@@ -2,41 +2,76 @@ import tkinter as tk
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
+# ================= TOP BAR =================
+def create_topbar(root, title):
+    bar = tk.Frame(root, bg="#000000", height=50)
+    bar.pack(fill="x")
+
+    tk.Label(
+        bar, text=title,
+        font=("Arial", 20, "bold"),
+        fg="cyan", bg="#000000"
+    ).pack(side="left", padx=20)
+
+
+# ================= SIDEBAR =================
 def create_sidebar_button(root, text, icon, command):
-    btn = tk.Button(
+    return tk.Button(
         root,
         text=f"{icon}  {text}",
-        font=("Arial", 14, "bold"),
-        bg="#222",
-        fg="white",
-        activebackground="#444",
-        activeforeground="white",
+        bg="#222", fg="white",
+        activebackground="#555",
         bd=0,
-        anchor="w",
-        padx=15,
-        pady=10,
+        anchor="w", padx=15, pady=10,
+        font=("Arial", 14, "bold"),
         command=command
     )
-    return btn
 
-def activate_button(button, all_buttons):
-    for b in all_buttons:
-        b.config(bg="#222")
-    button.config(bg="#555")
 
+def activate_button(selected, group):
+    for btn in group:
+        btn.config(bg="#222")
+    selected.config(bg="#444")
+
+
+# ================= LINE GRAPH =================
 def create_graph_frame(parent, title):
+    """
+    Returns EXACTLY 4 values:
+    frame, ax, line, canvas
+    """
     frame = tk.Frame(parent, bg="#1e1e2e")
 
     fig = Figure(figsize=(5, 3), dpi=100)
     ax = fig.add_subplot(111)
-    ax.set_title(title, color="white")
-    ax.set_facecolor("#222233")
-    fig.patch.set_facecolor("#1e1e2e")
-    ax.tick_params(colors='white')
 
-    line, = ax.plot([], [], linewidth=2, color="cyan")
+    ax.set_title(title, color="white")
+    ax.set_facecolor("#202025")
+    fig.patch.set_facecolor("#1e1e2e")
+    ax.tick_params(colors='white', labelsize=8)
+
+    line, = ax.plot([], [], linewidth=2, antialiased=False, color="cyan")
 
     canvas = FigureCanvasTkAgg(fig, master=frame)
     canvas.get_tk_widget().pack(fill="both", expand=True)
 
     return frame, ax, line, canvas
+
+
+# ================= PIE CHART =================
+def create_pie_frame(parent, title):
+    """
+    Returns EXACTLY 3 values:
+    frame, ax, canvas
+    """
+    frame = tk.Frame(parent, bg="#1e1e2e")
+
+    fig = Figure(figsize=(3.5, 3), dpi=100)
+    ax = fig.add_subplot(111)
+    ax.set_title(title, color="white")
+    fig.patch.set_facecolor("#1e1e2e")
+
+    canvas = FigureCanvasTkAgg(fig, master=frame)
+    canvas.get_tk_widget().pack()
+
+    return frame, ax, canvas
