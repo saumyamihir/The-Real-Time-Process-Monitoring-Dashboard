@@ -21,12 +21,11 @@ def create_sidebar_button(root, text, icon, command):
         text=f"{icon}  {text}",
         bg="#222", fg="white",
         activebackground="#555",
-        bd=0,
-        anchor="w", padx=15, pady=10,
+        bd=0, anchor="w",
+        padx=15, pady=10,
         font=("Arial", 14, "bold"),
         command=command
     )
-
 
 def activate_button(selected, group):
     for btn in group:
@@ -34,17 +33,16 @@ def activate_button(selected, group):
     selected.config(bg="#444")
 
 
-# ================= LINE GRAPH =================
+# ================== SMALL GRAPH FRAME ==================
 def create_graph_frame(parent, title):
     """
-    Returns EXACTLY 4 values:
-    frame, ax, line, canvas
+    Returns: frame, ax, line, canvas
     """
+
     frame = tk.Frame(parent, bg="#1e1e2e")
 
-    fig = Figure(figsize=(5, 3), dpi=100)
+    fig = Figure(figsize=(4, 2), dpi=100)    # <<< SMALL GRAPH HERE
     ax = fig.add_subplot(111)
-
     ax.set_title(title, color="white")
     ax.set_facecolor("#202025")
     fig.patch.set_facecolor("#1e1e2e")
@@ -53,20 +51,20 @@ def create_graph_frame(parent, title):
     line, = ax.plot([], [], linewidth=2, antialiased=False, color="cyan")
 
     canvas = FigureCanvasTkAgg(fig, master=frame)
-    canvas.get_tk_widget().pack(fill="both", expand=True)
+    canvas.get_tk_widget().pack(fill="x", expand=False)
 
     return frame, ax, line, canvas
 
 
-# ================= PIE CHART =================
+# ================= PIE FRAME ==================
 def create_pie_frame(parent, title):
     """
-    Returns EXACTLY 3 values:
-    frame, ax, canvas
+    Returns: frame, ax, canvas
     """
+
     frame = tk.Frame(parent, bg="#1e1e2e")
 
-    fig = Figure(figsize=(3.5, 3), dpi=100)
+    fig = Figure(figsize=(3, 3), dpi=100)
     ax = fig.add_subplot(111)
     ax.set_title(title, color="white")
     fig.patch.set_facecolor("#1e1e2e")

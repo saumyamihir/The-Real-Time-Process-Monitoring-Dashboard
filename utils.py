@@ -1,18 +1,15 @@
 import psutil
 
-# ================= CPU =================
 def get_cpu_usage():
     return psutil.cpu_percent(interval=0.1)
 
 def get_cpu_percore():
     return psutil.cpu_percent(interval=0.1, percpu=True)
 
-# ================= MEMORY =================
 def get_memory_usage():
     mem = psutil.virtual_memory()
     return mem.percent, mem.used / (1024**3), mem.total / (1024**3)
 
-# ================= DISK =================
 last_read = psutil.disk_io_counters().read_bytes
 last_write = psutil.disk_io_counters().write_bytes
 
@@ -25,7 +22,6 @@ def get_disk_speed():
     last_write = io.write_bytes
     return read, write
 
-# ================= NETWORK =================
 last_up = psutil.net_io_counters().bytes_sent
 last_down = psutil.net_io_counters().bytes_recv
 
@@ -38,7 +34,7 @@ def get_network_speed():
     last_down = io.bytes_recv
     return download, upload
 
-# ================= GPU =================
+# GPU
 try:
     from pynvml import (
         nvmlInit,
@@ -53,10 +49,10 @@ except:
 def get_gpu_usage():
     if not gpu_available:
         return None
+
     try:
         nvmlInit()
         handle = nvmlDeviceGetHandleByIndex(0)
-
         util = nvmlDeviceGetUtilizationRates(handle)
         gpu = util.gpu
 
