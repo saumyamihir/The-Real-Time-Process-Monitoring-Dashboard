@@ -2,7 +2,7 @@
 
 A premium desktop application built using Python + Tkinter, designed to monitor CPU, Memory, Disk, Network, and GPU usage in real-time.
 This dashboard provides live graphs, per-core CPU usage, process statistics, and an advanced, modern, task-manager-style UI.
-
+---
 🖥️ Features
 ✔ 1. Real-Time CPU Monitoring
 
@@ -58,6 +58,8 @@ Dark theme
 
 Task-Manager-like layout
 
+---
+
 🏗️ Project Structure
 📁 Real-Time-Process-Monitoring-Dashboard
 │── Main.py
@@ -71,6 +73,8 @@ Task-Manager-like layout
     │── memory_monitor.py
     │── network_monitor.py
 
+---
+
 📌 Installation
 1️⃣ Clone the project
 git clone [https://github.com/saumyamihir/The-Real-Time-Process-Monitoring-Dashboard.git]
@@ -82,14 +86,17 @@ pip install psutil matplotlib
 (Optional for GPU Stats)
 pip install nvidia-ml-py3
 
+---
+
 ▶️ How to Run
 
 Simply run:
 
 python Main.py
 
-
 The dashboard window will open automatically.
+
+---
 
 ⚙️ How It Works
 🔹 ui.py
@@ -99,6 +106,8 @@ The dashboard window will open automatically.
 │── Sidebar & top bar
 │── Premium styling
 
+---
+
 🔹 utils.py
 │── Handles:
 │── CPU / core stats
@@ -107,12 +116,16 @@ The dashboard window will open automatically.
 │── Network speeds
 │── GPU utilization (NVIDIA)
 
+---
+
 🔹 Main.py
 │── Page switching
 │── Live updates
 │── Drawing graphs
 │── Rectangle-style process cards
 │── Combining UI + logic together
+
+---
 
 🧠 Technologies Used
 
@@ -126,15 +139,21 @@ Psutil (System Stats)
 
 NVIDIA NVML (GPU Info)
 
+---
+
 👤 Author
 
 Saumya Mihir
 Python Developer | UI Designer | Tech Enthusiast
 
+---
+
 ⭐ Contribution
 
 Pull requests are welcome.
 Fork → Modify → PR.
+
+---
 
 📄 License
 
